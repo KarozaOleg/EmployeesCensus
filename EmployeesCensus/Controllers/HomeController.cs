@@ -20,6 +20,31 @@ namespace EmployeesCensus.Controllers
             ViewBag.Employees = employees;
             // возвращаем представление
             return View();
-        }        
+        }
+
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public string Add(Employee employee)
+        {
+            db.Employees.Add(employee);
+            db.SaveChanges();
+            return "Сотрудник добавлен";
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var employee = db.Employees.Find(id);
+            ViewBag.FirstName = employee.FirstName;
+            ViewBag.LastName = employee.LastName;
+            ViewBag.Age = employee.Age;
+            ViewBag.Sex = employee.Sex;
+            return View();
+        }
     }
 }

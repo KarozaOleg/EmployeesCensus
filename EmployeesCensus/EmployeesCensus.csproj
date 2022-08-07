@@ -136,6 +136,7 @@
     <Compile Include="Models\DepartmentContext.cs" />
     <Compile Include="Models\EmployeesCensusContext.cs" />
     <Compile Include="Models\EmployeesCensusDbInitializer.cs" />
+    <Compile Include="Models\ProgrammingLanguage.cs" />
     <Compile Include="Models\Sex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -24,6 +24,10 @@
     <dd>
         @Html.DisplayFor(model => model.Sex)
     </dd>
+    <dt>Департамент</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Department.Name)
+    </dd>
 </dl>
 
 @using (Html.BeginForm())

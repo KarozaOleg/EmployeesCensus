@@ -62,7 +62,9 @@ namespace EmployeesCensus.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var employee = db.Employees.Find(id);
+            var employee = db.Employees
+                .Include(e => e.Department)
+                .FirstOrDefault(x => x.Id == id); 
             if (employee == null)            
                 return HttpNotFound();
             

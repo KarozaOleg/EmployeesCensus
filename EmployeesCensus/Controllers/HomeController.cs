@@ -22,6 +22,8 @@ namespace EmployeesCensus.Controllers
         [HttpGet]
         public ActionResult Add()
         {
+            var departments = new SelectList(db.Departments, "Id", "Name");
+            ViewBag.Departments = departments;
             return View();
         }
 
@@ -43,7 +45,9 @@ namespace EmployeesCensus.Controllers
             var employee = db.Employees.Find(id);
             if (employee == null)            
                 return HttpNotFound();
-            
+
+            var departments = new SelectList(db.Departments, "Id", "Name");
+            ViewBag.Departments = departments;
             return View(employee);
         }
 

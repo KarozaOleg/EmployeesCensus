@@ -134,6 +134,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\DepartmentContext.cs" />
+    <Compile Include="Models\EmployeeExperience.cs" />
     <Compile Include="Models\EmployeesCensusContext.cs" />
     <Compile Include="Models\EmployeesCensusDbInitializer.cs" />
     <Compile Include="Models\ProgrammingLanguage.cs" />

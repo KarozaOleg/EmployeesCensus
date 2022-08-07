@@ -29,6 +29,12 @@
             <br />
             @Html.EnumDropDownListFor(m => m.Sex)
         </p>
+        <p>
+            @Html.LabelFor(m => m.Department, "Департамент")
+            <br />
+            @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
+        </p>
+
         <p><input type="submit" value="Отправить" /></p>
     </fieldset>
 }

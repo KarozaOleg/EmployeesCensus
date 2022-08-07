@@ -3,36 +3,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>Сотрудники</h2>
+<p>
+    @Html.ActionLink("Добавить сотрудника", "Add")
+</p>
+<table>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Пол</th>
+        <th>Название департамента</th>
+        <th></th>
+    </tr>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Перепись сотрудников</title>
-</head>
-<body>
-    <div>
-        <h3>Сотрудники</h3>
-        <table>
-            <tr>
-                <td><p>Имя</p></td>
-                <td><p>Фамилия</p></td>
-                <td><p>Возраст</p></td>
-                <td><p>Пол</p></td>
-                <td><p>Департамент</p></td>
-                <td></td>
-            </tr>
-            @foreach (EmployeesCensus.Models.Employee e in Model)
-            {
-            <tr>
-                <td><p>@e.FirstName</p></td>
-                <td><p>@e.LastName</p></td>
-                <td><p>@e.Age</p></td>
-                <td><p>@e.Sex</p></td>
-                <td><p>@e.DepartmentId</p></td>
-            </tr>
-            }
-        </table>
-    </div>
-</body>
-</html>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+        </tr>
+    }
+</table>

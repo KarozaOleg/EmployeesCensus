@@ -15,7 +15,8 @@ namespace EmployeesCensus.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Employees);
+            var employees = db.Employees.Include(e => e.Department);
+            return View(employees.ToList());
         }
 
         [HttpGet]

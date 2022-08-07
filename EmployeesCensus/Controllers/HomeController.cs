@@ -1,6 +1,7 @@
 ﻿using EmployeesCensus.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,16 +11,11 @@ namespace EmployeesCensus.Controllers
     public class HomeController : Controller
     {
         // создаем контекст данных
-        EmployeeContext db = new EmployeeContext();
+        EmployeesCensusContext db = new EmployeesCensusContext();
 
         public ActionResult Index()
         {
-            // получаем из бд все объекты Book
-            IEnumerable<Employee> employees = db.Employees;
-            // передаем все объекты в динамическое свойство Books в ViewBag
-            ViewBag.Employees = employees;
-            // возвращаем представление
-            return View();
+            return View(db.Employees);
         }
 
         [HttpGet]
@@ -29,22 +25,56 @@ namespace EmployeesCensus.Controllers
         }
 
         [HttpPost]
-        public string Add(Employee employee)
+        public ActionResult Add(Employee employee)
         {
-            db.Employees.Add(employee);
+            db.Entry(employee).State = EntityState.Added;
             db.SaveChanges();
-            return "Сотрудник добавлен";
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)            
+                return HttpNotFound();
+            
+            var employee = db.Employees.Find(id);
+            if (employee == null)            
+                return HttpNotFound();
+            
+            return View(employee);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Employee employee)
+        {
+            db.Entry(employee).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
         {
             var employee = db.Employees.Find(id);
-            ViewBag.FirstName = employee.FirstName;
-            ViewBag.LastName = employee.LastName;
-            ViewBag.Age = employee.Age;
-            ViewBag.Sex = employee.Sex;
-            return View();
+            if (employee == null)            
+                return HttpNotFound();
+            
+            return View(employee);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var employee = db.Employees.Find(id);
+            if (employee == null)
+                return HttpNotFound();
+
+            db.Employees.Remove(employee);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }

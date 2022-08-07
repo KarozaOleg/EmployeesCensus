@@ -1,5 +1,6 @@
-﻿@{
-    Layout = null;
+﻿@model IEnumerable<EmployeesCensus.Models.Employee>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -18,16 +19,18 @@
                 <td><p>Фамилия</p></td>
                 <td><p>Возраст</p></td>
                 <td><p>Пол</p></td>
+                <td><p>Департамент</p></td>
                 <td></td>
             </tr>
-            @foreach (var b in ViewBag.Employees)
+            @foreach (EmployeesCensus.Models.Employee e in Model)
             {
-                <tr>
-                    <td><p>@b.FirstName</p></td>
-                    <td><p>@b.LastName</p></td>
-                    <td><p>@b.Age</p></td>
-                    <td><p>@b.Sex</p></td>
-                </tr>
+            <tr>
+                <td><p>@e.FirstName</p></td>
+                <td><p>@e.LastName</p></td>
+                <td><p>@e.Age</p></td>
+                <td><p>@e.Sex</p></td>
+                <td><p>@e.DepartmentId</p></td>
+            </tr>
             }
         </table>
     </div>

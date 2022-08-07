@@ -1,0 +1,32 @@
+﻿@model EmployeesCensus.Models.Employee
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление сотрудника</h2>
+<dl>
+    <dt>Имя</dt>
+    <dd>
+        @Html.DisplayFor(model => model.FirstName)
+    </dd>
+
+    <dt>Фамилия</dt>
+    <dd>
+        @Html.DisplayFor(model => model.LastName)
+    </dd>
+
+    <dt>Возраст</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Age)
+    </dd>
+
+    <dt>Пол</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Sex)
+    </dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Удалить"   />
+}

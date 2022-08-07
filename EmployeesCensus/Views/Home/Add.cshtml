@@ -1,40 +1,33 @@
-﻿@{
-    Layout = null;
+﻿@model EmployeesCensus.Models.Employee
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Перепись сотрудников</title>
-</head>
-<body>
-    <div>
-        <h3>Добавление сотрудника</h3>
-        <form method="post" action="">
-            <table>
-                <tr>
-                    <td><p>Имя</p></td>
-                    <td><input type="text" name="FirstName" /> </td>
-                </tr>
-                <tr>
-                    <td><p>Фамилия</p></td>
-                    <td><input type="text" name="LastName" /> </td>
-                </tr>
-                <tr>
-                    <td><p>Возраст</p></td>
-                    <td><input type="text" name="Age" /> </td>
-                </tr>
-                <tr>
-                    <td><p>Пол</p></td>
-                    <td>@Html.DropDownList("Sex", EnumHelper.GetSelectList(typeof(EmployeesCensus.Models.Sex)), "Select gender", new { @class = "form-control" })</td>
-                </tr>
-                <tr>
-                    <td><input type="submit" value="Отправить" /></td>
-                    <td></td>
-                </tr>
-            </table>
-        </form>
-    </div>
-</body>
-</html>
+<h2>Добавление сотрудника</h2>
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <p>
+            @Html.LabelFor(m => m.FirstName, "Имя")
+            <br />
+            @Html.EditorFor(m => m.FirstName)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.LastName, "Фамилия")
+            <br />
+            @Html.EditorFor(m => m.LastName)
+
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Age, "Возраст")
+            <br />
+            @Html.EditorFor(m => m.Age)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Sex, "Пол")
+            <br />
+            @Html.EnumDropDownListFor(m => m.Sex)
+        </p>
+        <p><input type="submit" value="Добавить" /></p>
+    </fieldset>
+}

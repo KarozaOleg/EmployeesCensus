@@ -7,5 +7,6 @@
         public string LastName { get; set; }
         public int Age { get; set; }
         public Sex Sex { get; set; }
+        public int DepartmentId { get; set; }
     }
 }

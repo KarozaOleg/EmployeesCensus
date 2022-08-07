@@ -6,8 +6,8 @@ using System.Web;
 
 namespace EmployeesCensus.Models
 {
-    public class EmployeeContext : DbContext
+    public class DepartmentContext : DbContext
     {
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
     }
 }

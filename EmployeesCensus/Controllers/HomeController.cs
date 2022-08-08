@@ -15,7 +15,12 @@ namespace EmployeesCensus.Controllers
 
         public ActionResult Index()
         {
-            var employees = db.Employees.Include(e => e.Department);
+            var pg = db.EmployeesExperience;
+
+            var employees = db.Employees
+                .Include(e => e.Department)
+                .Include(e => e.EmployeeExperience);
+
             return View(employees.ToList());
         }
 
@@ -23,7 +28,9 @@ namespace EmployeesCensus.Controllers
         public ActionResult Add()
         {
             var departments = new SelectList(db.Departments, "Id", "Name");
+            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
             ViewBag.Departments = departments;
+            ViewBag.ProgrammingLanguages = programmingLanguages;
             return View();
         }
 
@@ -42,12 +49,16 @@ namespace EmployeesCensus.Controllers
             if (id == null)            
                 return HttpNotFound();
             
-            var employee = db.Employees.Find(id);
+            var employee = ReturnEmployee(id.Value);
             if (employee == null)            
                 return HttpNotFound();
 
             var departments = new SelectList(db.Departments, "Id", "Name");
             ViewBag.Departments = departments;
+
+            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
+            ViewBag.ProgrammingLanguages = programmingLanguages;
+
             return View(employee);
         }
 
@@ -60,11 +71,12 @@ namespace EmployeesCensus.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            var employee = db.Employees
-                .Include(e => e.Department)
-                .FirstOrDefault(x => x.Id == id); 
+            if(id == null)
+                return HttpNotFound();
+
+            var employee = ReturnEmployee(id.Value);
             if (employee == null)            
                 return HttpNotFound();
             
@@ -72,8 +84,10 @@ namespace EmployeesCensus.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
+            if (id.HasValue == false)
+                return HttpNotFound();
             var employee = db.Employees.Find(id);
             if (employee == null)
                 return HttpNotFound();
@@ -82,6 +96,11 @@ namespace EmployeesCensus.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        private Employee ReturnEmployee(int id)
+        {
+            return db.Employees.Find(id);
         }
     }
 }

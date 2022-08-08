@@ -8,6 +8,5 @@ namespace EmployeesCensus.Models
         public DbSet<Department> Departments { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public DbSet<EmployeeExperience> EmployeesExperience { get; set; }
-
     }
 }

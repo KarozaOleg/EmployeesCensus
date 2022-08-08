@@ -28,6 +28,10 @@
     <dd>
         @Html.DisplayFor(model => model.Department.Name)
     </dd>
+    <dt>Язык программирование</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Experience.ProgrammingLanguage.Name)
+    </dd>
 </dl>
 
 @using (Html.BeginForm())

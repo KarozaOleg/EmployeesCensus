@@ -5,5 +5,6 @@
         public int Id { get; set; }
         public int EmployeeId { get; set; }
         public int ProgrammingLanguageId { get; set; }
+        public ProgrammingLanguage ProgrammingLanguage { get; set; }
     }
 }

@@ -33,6 +33,11 @@
             <br />
             @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
         </p>
+        <p>
+            @Html.LabelFor(m => m.Experience.ProgrammingLanguage.Name, "Язык программирование")
+            <br />
+            @Html.DropDownListFor(model => model.Experience.ProgrammingLanguage.Id, ViewBag.ProgrammingLanguages as SelectList)
+        </p>
         <p><input type="submit" value="Добавить" /></p>
     </fieldset>
 }

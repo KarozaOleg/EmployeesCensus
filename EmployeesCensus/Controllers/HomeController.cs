@@ -15,11 +15,10 @@ namespace EmployeesCensus.Controllers
 
         public ActionResult Index()
         {
-            var pg = db.EmployeesExperience;
-
             var employees = db.Employees
                 .Include(e => e.Department)
-                .Include(e => e.EmployeeExperience);
+                .Include(e => e.Experience)
+                .Include(e => e.Experience.ProgrammingLanguage);
 
             return View(employees.ToList());
         }

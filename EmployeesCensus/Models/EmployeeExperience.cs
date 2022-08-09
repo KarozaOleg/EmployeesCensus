@@ -1,10 +1,13 @@
-﻿namespace EmployeesCensus.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EmployeesCensus.Models
 {
     public class EmployeeExperience
     {
-        public int Id { get; set; }
-        public int EmployeeId { get; set; }
+        [ForeignKey("Employee")]
+        public int EmployeeExperienceId { get; set; }
         public int ProgrammingLanguageId { get; set; }
         public ProgrammingLanguage ProgrammingLanguage { get; set; }
+        public Employee Employee { get; set; }
     }
 }

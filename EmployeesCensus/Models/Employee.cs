@@ -9,6 +9,6 @@
         public Sex Sex { get; set; }
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
-        public EmployeeExperience EmployeeExperience { get; set; }
+        public EmployeeExperience Experience { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace EmployeesCensus.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmployeesCensus.Models
 {
     public class Department
     {

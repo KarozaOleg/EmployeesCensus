@@ -4,6 +4,7 @@ using System.Web.Mvc;
 
 namespace EmployeesCensus.Controllers
 {
+    [AllowAnonymous]
     public class AutocompleteSearchController : Controller
     {
         EmployeesCensusContext db = new EmployeesCensusContext();

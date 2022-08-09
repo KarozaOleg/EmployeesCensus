@@ -14,9 +14,15 @@ namespace EmployeesCensus
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Users",
+                name: "UsersAdding",
                 url: "users/add",
                 defaults: new { controller = "Users", action = "Add" }
+            );
+
+            routes.MapRoute(
+                name: "AutocompleteSearch",
+                url: "AutocompleteSearch/{action}/{id}",
+                defaults: new { controller = "AutocompleteSearch", action = "Add", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

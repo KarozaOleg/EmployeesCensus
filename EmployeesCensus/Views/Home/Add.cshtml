@@ -11,7 +11,7 @@
         <p>
             @Html.LabelFor(m => m.FirstName, "Имя")
             <br />
-            @Html.EditorFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { data_autocomplete_source = @Url.Action("FirstName", "AutocompleteSearch") })
         </p>
         <p>
             @Html.LabelFor(m => m.LastName, "Фамилия")

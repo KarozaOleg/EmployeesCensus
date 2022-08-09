@@ -14,7 +14,7 @@ namespace EmployeesCensus.ActivityTracking
                 var auth = filterContext.HttpContext.Request.Headers["Authorization"];
                 if (string.IsNullOrEmpty(auth))
                     return;
-                var cred = System.Text.ASCIIEncoding.ASCII.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
+                var cred = System.Text.Encoding.ASCII.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
                 if (cred.Length < 2)
                     return;
                 var userId = ReturnUserId(cred[0]);
@@ -22,7 +22,6 @@ namespace EmployeesCensus.ActivityTracking
                     return;
 
                 var actionDescriptor = filterContext.ActionDescriptor;
-
                 SaveActionIntoDb(userId.Value, actionDescriptor.ControllerDescriptor.ControllerName, actionDescriptor.ActionName);
             }
             finally
@@ -36,9 +35,10 @@ namespace EmployeesCensus.ActivityTracking
             using (var db = new EmployeesCensusContext())
             {
                 return db.Users
-                .Where(u => u.Username == username)
-                .Select(u => u.Id)
-                .SingleOrDefault();
+                    .AsNoTracking()
+                    .Where(u => u.Username == username)
+                    .Select(u => u.Id)
+                    .SingleOrDefault();
             }
         }
 
@@ -51,6 +51,7 @@ namespace EmployeesCensus.ActivityTracking
                 Action = action,
                 Timestamp = DateTime.Now
             };
+
             using (var db = new EmployeesCensusContext())
             {
                 db.UserActivity.Add(userActivity);

@@ -11,22 +11,21 @@ namespace EmployeesCensus.Controllers
     [UserTrackerLogAttribute]
     public class HomeController : Controller
     {
-        EmployeesCensusContext db = new EmployeesCensusContext();
+        EmployeesCensusContext Db = new EmployeesCensusContext();
 
         public ActionResult Index()
         {
             var employees = ReturnEmployees().ToList();
-
             return View(employees);
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            var departments = new SelectList(db.Departments, "Id", "Name");
+            var departments = new SelectList(Db.Departments, "Id", "Name");
             ViewBag.Departments = departments;
 
-            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
+            var programmingLanguages = new SelectList(Db.ProgrammingLanguages, "Id", "Name");
             ViewBag.ProgrammingLanguages = programmingLanguages;
 
             return View();
@@ -35,8 +34,8 @@ namespace EmployeesCensus.Controllers
         [HttpPost]
         public ActionResult Add(Employee employee)
         {
-            db.Entry(employee).State = EntityState.Added;
-            db.SaveChanges();
+            Db.Entry(employee).State = EntityState.Added;
+            Db.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -51,10 +50,10 @@ namespace EmployeesCensus.Controllers
             if (employee == null)            
                 return HttpNotFound();
 
-            var departments = new SelectList(db.Departments, "Id", "Name");
+            var departments = new SelectList(Db.Departments, "Id", "Name");
             ViewBag.Departments = departments;
 
-            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
+            var programmingLanguages = new SelectList(Db.ProgrammingLanguages, "Id", "Name");
             ViewBag.ProgrammingLanguages = programmingLanguages;
 
             return View(employee);
@@ -63,9 +62,10 @@ namespace EmployeesCensus.Controllers
         [HttpPost]
         public ActionResult Edit(Employee employee)
         {
-            db.Entry(employee).State = EntityState.Modified;
-            db.Entry(employee.Experience).State = EntityState.Modified;
-            db.SaveChanges();
+            Db.Entry(employee).State = EntityState.Modified;
+            Db.Entry(employee.Experience).State = EntityState.Modified;
+            Db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -93,15 +93,15 @@ namespace EmployeesCensus.Controllers
                 return HttpNotFound();
 
             employee.IsDeleted = true;
-            db.Entry(employee).State = EntityState.Modified;
-            db.SaveChanges();
+            Db.Entry(employee).State = EntityState.Modified;
+            Db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
         private IQueryable<Employee> ReturnEmployees()
         {
-            return db.Employees
+            return Db.Employees
                 .Include(e => e.Department)
                 .Include(e => e.Experience)
                 .Include(e => e.Experience.ProgrammingLanguage)

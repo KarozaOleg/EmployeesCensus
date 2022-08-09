@@ -8,6 +8,7 @@
         public int Age { get; set; }
         public Sex Sex { get; set; }
         public int DepartmentId { get; set; }
+        public bool IsDeleted { get; set; }
         public Department Department { get; set; }
         public EmployeeExperience Experience { get; set; }
     }

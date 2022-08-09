@@ -11,11 +11,7 @@ namespace EmployeesCensus.Controllers
 
         public ActionResult Index()
         {
-            var employees = db.Employees
-                .Include(e => e.Department)
-                .Include(e => e.Experience)
-                .Include(e => e.Experience.ProgrammingLanguage)
-                .ToList();
+            var employees = ReturnEmployees().ToList();
 
             return View(employees);
         }
@@ -87,23 +83,30 @@ namespace EmployeesCensus.Controllers
         {
             if (id.HasValue == false)
                 return HttpNotFound();
+
             var employee = ReturnEmployee(id.Value);
             if (employee == null)
                 return HttpNotFound();
 
-            db.Employees.Remove(employee);
+            employee.IsDeleted = true;
+            db.Entry(employee).State = EntityState.Modified;
             db.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        private Employee ReturnEmployee(int id)
+        private IQueryable<Employee> ReturnEmployees()
         {
             return db.Employees
                 .Include(e => e.Department)
                 .Include(e => e.Experience)
                 .Include(e => e.Experience.ProgrammingLanguage)
-                .FirstOrDefault(e => e.Id == id);
+                .Where(e => e.IsDeleted == false);
+        }
+
+        private Employee ReturnEmployee(int id)
+        {
+            return ReturnEmployees().FirstOrDefault(e => e.Id == id);
         }
     }
 }

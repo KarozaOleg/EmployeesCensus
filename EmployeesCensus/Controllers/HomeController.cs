@@ -17,9 +17,10 @@ namespace EmployeesCensus.Controllers
             var employees = db.Employees
                 .Include(e => e.Department)
                 .Include(e => e.Experience)
-                .Include(e => e.Experience.ProgrammingLanguage);
+                .Include(e => e.Experience.ProgrammingLanguage)
+                .ToList();
 
-            return View(employees.ToList());
+            return View(employees);
         }
 
         [HttpGet]
@@ -89,7 +90,7 @@ namespace EmployeesCensus.Controllers
         {
             if (id.HasValue == false)
                 return HttpNotFound();
-            var employee = db.Employees.Find(id);
+            var employee = ReturnEmployee(id.Value);
             if (employee == null)
                 return HttpNotFound();
 

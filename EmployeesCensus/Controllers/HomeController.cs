@@ -10,7 +10,6 @@ namespace EmployeesCensus.Controllers
 {
     public class HomeController : Controller
     {
-        // создаем контекст данных
         EmployeesCensusContext db = new EmployeesCensusContext();
 
         public ActionResult Index()
@@ -27,9 +26,11 @@ namespace EmployeesCensus.Controllers
         public ActionResult Add()
         {
             var departments = new SelectList(db.Departments, "Id", "Name");
-            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
             ViewBag.Departments = departments;
+
+            var programmingLanguages = new SelectList(db.ProgrammingLanguages, "Id", "Name");
             ViewBag.ProgrammingLanguages = programmingLanguages;
+
             return View();
         }
 
@@ -65,6 +66,7 @@ namespace EmployeesCensus.Controllers
         public ActionResult Edit(Employee employee)
         {
             db.Entry(employee).State = EntityState.Modified;
+            db.Entry(employee.Experience).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -99,7 +101,11 @@ namespace EmployeesCensus.Controllers
 
         private Employee ReturnEmployee(int id)
         {
-            return db.Employees.Find(id);
+            return db.Employees
+                .Include(e => e.Department)
+                .Include(e => e.Experience)
+                .Include(e => e.Experience.ProgrammingLanguage)
+                .FirstOrDefault(e => e.Id == id);
         }
     }
 }

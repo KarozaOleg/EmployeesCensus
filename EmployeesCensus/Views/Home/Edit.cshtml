@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Edit", "Home", FormMethod.Post))
 {
     <fieldset>
-        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Experience.EmployeeExperienceId)
         <p>
             @Html.LabelFor(m => m.FirstName, "Имя")
             <br />
@@ -35,9 +35,9 @@
             @Html.DropDownListFor(model => model.DepartmentId, ViewBag.Departments as SelectList)
         </p>
         <p>
-            @Html.LabelFor(m => m.Experience.ProgrammingLanguage.Name, "Язык программирование")
+            @Html.LabelFor(m => m.Experience.ProgrammingLanguage, "Язык программирование")
             <br />
-            @Html.DropDownListFor(model => model.Experience.ProgrammingLanguage.Id, ViewBag.ProgrammingLanguages as SelectList)
+            @Html.DropDownListFor(model => model.Experience.ProgrammingLanguageId, ViewBag.ProgrammingLanguages as SelectList)
         </p>
 
         <p><input type="submit" value="Отправить" /></p>

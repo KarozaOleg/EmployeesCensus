@@ -19,7 +19,7 @@ namespace EmployeesCensus.Authentication
             {
                 var cred = System.Text.ASCIIEncoding.ASCII.GetString(Convert.FromBase64String(auth.Substring(6))).Split(':');
                 var user = new { Name = cred[0], Pass = cred[1] };
-                if (db.Users.Any(u => u.UserName.Equals(user.Name) && u.Password.Equals(user.Pass)))
+                if (db.Users.Any(u => u.Username.Equals(user.Name) && u.Password.Equals(user.Pass)))
                     return;
             }
             filterContext.HttpContext.Response.AddHeader("WWW-Authenticate", String.Format("Basic realm=\"{0}\"", "BasicRealm"));

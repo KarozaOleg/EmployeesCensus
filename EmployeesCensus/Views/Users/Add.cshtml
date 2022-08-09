@@ -1,0 +1,24 @@
+﻿@model EmployeesCensus.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Добавление пользователя</h2>
+@using (Html.BeginForm("Add", "Users", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.Id)
+        <p>
+            @Html.LabelFor(m => m.UserName, "Имя")
+            <br />
+            @Html.TextBoxFor(m => m.UserName)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Password)
+            <br />
+            @Html.EditorFor(m => m.Password)
+
+        </p>
+        <p><input type="submit" value="Добавить" /></p>
+    </fieldset>
+}

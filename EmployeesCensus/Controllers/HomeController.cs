@@ -1,10 +1,12 @@
-﻿using EmployeesCensus.Models;
+﻿using EmployeesCensus.Authentication;
+using EmployeesCensus.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace EmployeesCensus.Controllers
 {
+    [BasicAuthenticationAttribute]
     public class HomeController : Controller
     {
         EmployeesCensusContext db = new EmployeesCensusContext();
